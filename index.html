@@ -2,42 +2,16 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>WAGABAYASHI</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-        }
-        .menu-item {
-            margin: 20px auto;
-            display: inline-block;
-            text-align: center;
-        }
-        .menu-item img {
-            width: 200px;
-            height: 150px;
-            display: block;
-            margin: 10px auto;
-        }
-        .button-group {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-        }
-        button {
-            font-size: 16px;
-            padding: 5px 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="wagabayashi.css">
 </head>
 <body>
 
     <h1>居酒屋注文システム</h1>
 
     <div class="menu-item">
-        <img src="./ProductImages/01_唐揚げ.jpg" alt="商品画像">
+        <img src="https://placehold.co/250x180" alt="商品画像">
         <h3>唐揚げ</h3>
         <div class="button-group">
             <button onclick="changeQuantity(-1)">➖</button>
@@ -49,7 +23,7 @@
     </div>
 
     <script>
-        const API_URL = "https://script.google.com/macros/s/AKfycbyHcQ8vCvZzsUytOIFfMYN0RMvZ8sEhIaYa0EB0A5aZScbdDRzX9V68U8fya5K_x5NylQ/exec"; // 最新のGASデプロイURLに変更
+        const API_URL = "【GASのデプロイURL】"; // 最新のGASデプロイURLに変更
         let quantity = 0;
 
         function changeQuantity(amount) {
@@ -69,23 +43,13 @@
             };
 
             try {
-                console.log("送信データ:", orderData); // デバッグ用ログ
-
                 let response = await fetch(API_URL, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(orderData)
                 });
 
-                console.log("レスポンスステータス:", response.status);
-
-                if (!response.ok) {
-                    throw new Error(`HTTPエラー! ステータス: ${response.status}`);
-                }
-
                 let result = await response.json();
-                console.log("サーバーレスポンス:", result);
-
                 if (result.status === "success") {
                     alert("注文が完了しました！");
                     quantity = 0;
@@ -98,7 +62,6 @@
                 alert("サーバーエラーが発生しました。");
             }
         }
-
     </script>
 
 </body>
