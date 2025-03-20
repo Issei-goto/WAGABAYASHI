@@ -1,80 +1,12 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>WAGABAYASHI</title>
-    <link rel="stylesheet" href="index.css">
-</head>
-<body>
-
-    <h1>居酒屋注文システム</h1>
-
-    <div class="menu-item">
-        <img src="./ProductImages/01_唐揚げ.jpg" alt="商品画像">
-        <h3>唐揚げ</h3>
-        <div class="button-group">
-            <button onclick="changeQuantity(-1)">➖</button>
-            <span id="quantity">0</span>
-            <button onclick="changeQuantity(1)">➕</button>
-        </div>
-        <br>
-        <button onclick="placeOrder()">注文する</button>
-    </div>
-
-    <script>
-        const API_URL = "https://script.google.com/macros/s/AKfycbyx9Byz4BDAGrnUJs-U8B3qOmrzBCUUAigG8toCA2PxPWm9LkqmgooDyLo7khwJSQIF/exec"; // 最新のGASデプロイURLに変更
-        let quantity = 0;
-
-        function changeQuantity(amount) {
-            quantity = Math.max(0, quantity + amount);
-            document.getElementById("quantity").textContent = quantity;
-        }
-
-        async function placeOrder() {
-            if (quantity === 0) {
-                alert("注文数は0です。注文するには商品を選んでください。");
-                return;
-            }
-
-            let orderData = {
-                item: "唐揚げ",
-                quantity: quantity
-            };
-
-            try {
-                console.log("送信データ:", orderData);
-
-                let response = await fetch(API_URL, {
-                    method: "POST",
-                    mode: "cors",  // ✅ CORS を明示的に許可
-                    cache: "no-cache",  // ✅ キャッシュを無効化
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(orderData)
-                });
-
-                console.log("レスポンスステータス:", response.status);
-
-                if (!response.ok) {
-                    throw new Error(`HTTPエラー! ステータス: ${response.status}`);
-                }
-
-                let result = await response.json();
-                console.log("サーバーレスポンス:", result);
-
-                if (result.status === "success") {
-                    alert("注文が完了しました！");
-                    quantity = 0;
-                    document.getElementById("quantity").textContent = quantity;
-                } else {
-                    alert("注文に失敗しました。");
-                }
-            } catch (error) {
-                console.error("エラー:", error);
-                alert("サーバーエラーが発生しました。");
-            }
-        }
-    </script>
-
-</body>
-</html>
+<form action="デブロイ後のURLが入る" method="POST">
+    <label for="number">番号<span class="required">必須</span></label>
+    <input type="radio" name="number" id="radio1" required value="1" />1 
+    <input type="radio" name="number" id="radio2" required value="2" />2 
+    <input type="radio" name="number" id="radio3" required value="3" />3
+    
+    <label for="name">氏名<span class="required">必須</span></label>
+    <input type="text" name="name" id="name" required />
+    <label for="message">メッセージ<span class="required">必須</span></label>
+    <textarea type="text" name="message" id="message" required></textarea>
+    <button type="submit">Submit</button>
+</form>
