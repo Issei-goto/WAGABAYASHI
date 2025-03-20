@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>WAGABAYASHI</title>
-    <link rel="stylesheet" href="wagabayashi.css">
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
 
     <h1>居酒屋注文システム</h1>
 
     <div class="menu-item">
-        <img src="https://placehold.co/250x180" alt="商品画像">
+        <img src="./ProductImages/01_唐揚げ.jpg" alt="商品画像">
         <h3>唐揚げ</h3>
         <div class="button-group">
             <button onclick="changeQuantity(-1)">➖</button>
@@ -23,7 +23,7 @@
     </div>
 
     <script>
-        const API_URL = "【GASのデプロイURL】"; // 最新のGASデプロイURLに変更
+        const API_URL = "https://script.google.com/macros/s/AKfycbwps1nB4QKFxxjjeB2i2Jo5NR-h6WFEfl3X2IY8mxuBEQ1O3cTqPaBHkI5nVH11-rq7tw/exec"; // 最新のGASデプロイURLに変更
         let quantity = 0;
 
         function changeQuantity(amount) {
