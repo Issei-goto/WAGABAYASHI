@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>WAGABAYASHI</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="wagabayashi.css">
 </head>
 <body>
 
-    <h1>注文メニュー</h1>
+    <h1>居酒屋注文システム</h1>
 
     <div class="menu-item">
-        <img src="./ProductImages/01_唐揚げ.jpg" alt="商品画像">
+        <img src="https://placehold.co/250x180" alt="商品画像">
         <h3>唐揚げ</h3>
         <div class="button-group">
             <button onclick="changeQuantity(-1)">➖</button>
@@ -23,7 +23,7 @@
     </div>
 
     <script>
-        const API_URL = "https://script.google.com/macros/s/AKfycbxkARrnfNAlhDB6W-EsWjJp19B9b9rO10nOEc9ytnvkGOemDTGVHWvcicTCEasoZ6FA7Q/exec"; // 最新のGASデプロイURLに変更
+        const API_URL = "【最新のGASデプロイURL】"; // 最新のGASデプロイURLに変更
         let quantity = 0;
 
         function changeQuantity(amount) {
@@ -43,13 +43,25 @@
             };
 
             try {
+                console.log("送信データ:", orderData);
+
                 let response = await fetch(API_URL, {
                     method: "POST",
+                    mode: "cors",  // ✅ CORS を明示的に許可
+                    cache: "no-cache",  // ✅ キャッシュを無効化
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(orderData)
                 });
 
+                console.log("レスポンスステータス:", response.status);
+
+                if (!response.ok) {
+                    throw new Error(`HTTPエラー! ステータス: ${response.status}`);
+                }
+
                 let result = await response.json();
+                console.log("サーバーレスポンス:", result);
+
                 if (result.status === "success") {
                     alert("注文が完了しました！");
                     quantity = 0;
