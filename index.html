@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WAGABAYASHI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .menu-item {
+            margin: 20px auto;
+            display: inline-block;
+            text-align: center;
+        }
+        .menu-item img {
+            width: 200px;
+            height: 150px;
+            display: block;
+            margin: 10px auto;
+        }
+        .button-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        button {
+            font-size: 16px;
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>居酒屋注文システム</h1>
+
+    <div class="menu-item">
+        <img src="https://placehold.co/200x150" alt="商品画像">
+        <h3>唐揚げ</h3>
+        <div class="button-group">
+            <button onclick="changeQuantity(-1)">➖</button>
+            <span id="quantity">0</span>
+            <button onclick="changeQuantity(1)">➕</button>
+        </div>
+        <br>
+        <button onclick="placeOrder()">注文する</button>
+    </div>
+
+    <script>
+        const API_URL = "【GASのデプロイURL】"; // 最新のGASデプロイURLに変更
+        let quantity = 0;
+
+        function changeQuantity(amount) {
+            quantity = Math.max(0, quantity + amount);
+            document.getElementById("quantity").textContent = quantity;
+        }
+
+        async function placeOrder() {
+            if (quantity === 0) {
+                alert("注文数は0です。注文するには商品を選んでください。");
+                return;
+            }
+
+            let orderData = {
+                item: "唐揚げ",
+                quantity: quantity
+            };
+
+            try {
+                let response = await fetch(API_URL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(orderData)
+                });
+
+                let result = await response.json();
+                if (result.status === "success") {
+                    alert("注文が完了しました！");
+                    quantity = 0;
+                    document.getElementById("quantity").textContent = quantity;
+                } else {
+                    alert("注文に失敗しました。");
+                }
+            } catch (error) {
+                console.error("エラー:", error);
+                alert("サーバーエラーが発生しました。");
+            }
+        }
+    </script>
+
+</body>
+</html>
