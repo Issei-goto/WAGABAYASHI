@@ -1,0 +1,39 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    touch-action: manipulation; /* ダブルタップズーム無効 */
+}
+.menu-item {
+    margin: 20px auto;
+    display: inline-block;
+    text-align: center;
+}
+.menu-item img {
+    width: 250px; /* 画像サイズを少し大きく調整 */
+    height: 180px;
+    display: block;
+    margin: 10px auto;
+    border-radius: 10px; /* 角を丸くする */
+}
+.button-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+button {
+    font-size: 18px;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #ff9800;
+    color: white;
+    font-weight: bold;
+}
+button:hover {
+    background-color: #e68900;
+}
+button:active {
+    transform: scale(0.95);
+}
